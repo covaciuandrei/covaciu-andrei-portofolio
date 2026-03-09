@@ -79,7 +79,7 @@ Whenever you make changes to the code locally, follow these steps to update the 
 3. **Connect to the server and run the deploy script**
    ```bash
    ssh -i ~/.ssh/id_digitalocean root@134.209.238.126
-   ./deploy.sh
+   ./covaciu-andrei-portofolio/deploy.sh
    ```
 
 > **⚠️`deploy.sh` script**:
