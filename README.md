@@ -65,13 +65,17 @@ ssh -i ~/.ssh/id_digitalocean root@134.209.238.126
 ### How to Publish Updates
 Whenever you make changes to the code locally, follow these steps to update the live website:
 
-1. **Commit and push your changes to GitHub**
+1. **Bump the application version** (to track deployments in the page footer)
+   ```bash
+   npm version patch # or minor/major
+   ```
+2. **Commit and push your changes to GitHub**
    ```bash
    git add .
-   git commit -m "Update website"
+   git commit -m "Update website and bump version"
    git push
    ```
-2. **Connect to the server and run the deploy script**
+3. **Connect to the server and run the deploy script**
    ```bash
    ssh -i ~/.ssh/id_digitalocean root@134.209.238.126
    ./deploy.sh

@@ -1,6 +1,8 @@
 /* ==========================================
    script.js – Portfolio Interactions
    ========================================== */
+import { version } from './package.json';
+
 
 // ─── Utility ───────────────────────────────────
 const $ = (s, p = document) => p.querySelector(s);
@@ -157,10 +159,15 @@ if (profileImg && avatarInitials) {
     });
 }
 
-// ─── Footer Year ─────────────────────────────
+// ─── Footer Year & Version ─────────────────────────────
 const footerYear = document.querySelector('.footer-bottom p');
 if (footerYear) {
     footerYear.innerHTML = footerYear.innerHTML.replace('2026', new Date().getFullYear());
+}
+
+const appVersionEl = document.getElementById('app-version');
+if (appVersionEl) {
+    appVersionEl.textContent = version;
 }
 
 // ─── Active section on page load ──────────────
