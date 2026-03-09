@@ -387,6 +387,8 @@ ul {
   padding: 1.5rem 2rem;
   transform: translateY(-110%);
   transition: transform 0.4s var(--ease-out-expo);
+  display: none;
+  /* Hide on desktop */
 }
 
 .mobile-menu.open {
@@ -1757,6 +1759,11 @@ ul {
 
   .hero-scroll-indicator {
     display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+    /* Show only on mobile screens */
   }
 }
 
