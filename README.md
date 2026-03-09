@@ -49,6 +49,52 @@ npm run preview
     - Reveal-on-scroll animations.
     - Web3Forms integration for the contact form with hCaptcha protection.
 
+## 🌍 Deployment & Hosting (DigitalOcean)
+
+This website is hosted on a DigitalOcean Droplet (Ubuntu 22.04 LTS) and served securely via Nginx and Let's Encrypt (HTTPS). 
+
+**Domain:** `https://andreicovaciu.dev`  
+**Server IP:** `134.209.238.126`  
+
+### How to Connect to the Server
+To access the server via SSH from your terminal, use your generated SSH key:
+```bash
+ssh -i ~/.ssh/id_digitalocean root@134.209.238.126
+```
+
+### How to Publish Updates
+Whenever you make changes to the code locally, follow these steps to update the live website:
+
+1. **Commit and push your changes to GitHub**
+   ```bash
+   git add .
+   git commit -m "Update website"
+   git push
+   ```
+2. **Connect to the server and run the deploy script**
+   ```bash
+   ssh -i ~/.ssh/id_digitalocean root@134.209.238.126
+   ./deploy.sh
+   ```
+
+> **⚠️`deploy.sh` script**:
+> ```bash
+> #!/bin/bash
+> cd ~/cv-project
+> git pull
+> npm install
+> npm run build
+> sudo rm -rf /var/www/html/*
+> sudo cp -r build/* /var/www/html/ 
+> sudo systemctl restart nginx
+> echo "🚀 Site actualizat cu succes!"
+> ```
+
+### Server maintenance details
+- **Web Server:** Nginx (config file is at `/etc/nginx/sites-available/default`)
+- **Site Files Path:** `/var/www/html/`
+- **SSL Certificates:** Certbot handles automatic renewals.
+
 ## 📁 Project Structure
 
 ```text
