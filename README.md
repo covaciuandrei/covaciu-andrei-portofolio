@@ -49,6 +49,24 @@ npm run preview
     - Reveal-on-scroll animations.
     - Web3Forms integration for the contact form with hCaptcha protection.
 
+## 📧 Contact Form Configuration (Web3Forms)
+
+The contact form is powered by **[Web3Forms](https://web3forms.com/)** and comes protected with **hCaptcha** to prevent spam submissions. The form sends an email directly to the provided email address without needing an elaborate backend.
+
+### How to configure Web3Forms:
+
+1. **Get an Access Key**: 
+   Go to [Web3Forms](https://web3forms.com/) and generate a free access key for your email address.
+2. **Update the Access Key**: 
+   In `index.html`, locate the contact form `<form id="contact-form">` and update the hidden input:
+   ```html
+   <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+   ```
+3. **Customize Settings**:
+   You can also modify the `subject` hidden input in `index.html` to change the email subject line when you receive submissions.
+
+The CAPTCHA implementation is heavily optimized; it stays hidden by default and only appears when the user interacts with the form to submit, minimizing friction while keeping spam out.
+
 ## 🌍 Deployment & Hosting (DigitalOcean)
 
 This website is hosted on a DigitalOcean Droplet (Ubuntu 22.04 LTS) and served securely via Nginx and Let's Encrypt (HTTPS). 
@@ -130,11 +148,14 @@ Whenever you make changes to the code locally, follow these steps to update the 
 
 ```text
 /andrei-portofolio/
-├── dist/               # THE PRODUCTION READY BUILD (Obfuscated)
+├── .github/             # GitHub configuration (e.g. issue templates or workflows)
+├── dist/                # THE PRODUCTION READY BUILD (Obfuscated)
 ├── assets/              # Source images and PDF documents
+├── public/              # Public assets copied over to dist un-hashed
 ├── index.html           # Main HTML structure
-├── script.js           # Core JavaScript logic
+├── script.js            # Core JavaScript logic
 ├── style.css            # Custom CSS styling & animations
+├── deploy.sh            # Deployment script for pulling updates and restarting Nginx
 ├── vite.config.js       # Vite and Obfuscation settings
 └── package.json         # Project dependencies and scripts
 ```
