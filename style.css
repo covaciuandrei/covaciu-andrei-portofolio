@@ -1072,21 +1072,40 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .timeline-header h3 {
   font-size: 1.25rem;
+  font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.company-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.company-logo[src*="wikitech"] {
+  background: #1a1a2e;
 }
 
 .company {
   font-size: 0.95rem;
   color: var(--accent-blue);
   font-weight: 600;
-  margin-top: 0.2rem;
 }
 
 .timeline-date {
