@@ -1214,6 +1214,9 @@ ul {
   line-height: 1.4;
   margin-bottom: 1rem;
   min-height: 2.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .skill-tags {
