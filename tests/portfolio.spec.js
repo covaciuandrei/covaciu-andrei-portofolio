@@ -13,7 +13,13 @@ test('built site serves both PDFs, all local images, and real missing-file respo
     await expect(page.locator('#app-version')).toHaveText(/^\d+\.\d+\.\d+$/);
     await expect(page.locator('#proj-famflix a')).toHaveAttribute('href', 'https://github.com/covaciuandrei/famflix');
     await expect(page.locator('#proj-famflix img')).toHaveAttribute('src', /proj-famflix-titles-.*\.webp$/);
+    await expect(page.locator('#proj-famflix img')).toHaveCSS('object-fit', 'cover');
     await expect(page.locator('#proj-calator')).toHaveCount(0);
+
+    const credits = await page.getByRole('link', { name: 'FamFlix artwork credits' }).getAttribute('href');
+    const creditsResponse = await request.get(`/${credits}`);
+    expect(creditsResponse.ok()).toBe(true);
+    expect(await creditsResponse.text()).toContain('Caminandes 3: Llamigos');
 
     for (const link of ['#nav-cv', 'a[href$="andrei_covaciu_ic3_certificate.pdf"]']) {
         const href = await page.locator(link).getAttribute('href');

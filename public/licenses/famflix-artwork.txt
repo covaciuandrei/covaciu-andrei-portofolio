@@ -1,0 +1,25 @@
+FamFlix cover artwork credits
+=============================
+
+The portfolio cover crops, color-grades, and composites the following
+stills alongside the FamFlix brand mark. The films are not affiliated
+with or endorsing FamFlix.
+
+Tears of Steel (2012)
+(CC) Blender Foundation | mango.blender.org
+Source: https://studio.blender.org/projects/tears-of-steel/
+License: https://creativecommons.org/licenses/by/3.0/
+Licensing details: https://mango.blender.org/sharing/
+
+Spring (2019)
+Copyright Blender Foundation | cloud.blender.org/spring
+Source: https://studio.blender.org/projects/spring/
+License: https://creativecommons.org/licenses/by/4.0/
+Licensing details: https://studio.blender.org/projects/spring/pages/about/
+
+Caminandes 3: Llamigos (2016), an episode of the Caminandes series
+Blender Institute; directed by Pablo Vazquez
+Source: https://studio.blender.org/projects/caminandes-3/
+License: https://creativecommons.org/licenses/by/3.0/
+Release and licensing details:
+https://commons.wikimedia.org/wiki/File:Caminandes_3_-_Llamigos_-_Blender_Animated_Short.webm

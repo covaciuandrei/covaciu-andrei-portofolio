@@ -37,3 +37,4 @@ The deployment target is **Azure Static Web Apps Free**, resource `portofolio` i
 
 - The contact form uses a [Web3Forms public submission identifier](https://docs.web3forms.com/getting-started/faq). Its documented hCaptcha integration loads only on demand; the direct email link is available even when scripts or CAPTCHA are blocked.
 - The CV and IC3 certificate live in `public/` so Vite ships the original PDFs. Project thumbnails are local and lazy-loaded. Inter and Space Grotesk are self-hosted under the [SIL Open Font License](public/licenses/).
+- The FamFlix thumbnail uses [credited Creative Commons film and series stills](public/licenses/famflix-artwork.txt).
