@@ -12,6 +12,7 @@ test('built site serves both PDFs, all local images, and real missing-file respo
     await page.goto('/');
     await expect(page.locator('#app-version')).toHaveText(/^\d+\.\d+\.\d+$/);
     await expect(page.locator('#proj-famflix a')).toHaveAttribute('href', 'https://github.com/covaciuandrei/famflix');
+    await expect(page.locator('#proj-famflix img')).toHaveAttribute('src', /proj-famflix-titles-.*\.webp$/);
     await expect(page.locator('#proj-calator')).toHaveCount(0);
 
     for (const link of ['#nav-cv', 'a[href$="andrei_covaciu_ic3_certificate.pdf"]']) {
@@ -97,9 +98,12 @@ test('layout stays within the viewport from narrow mobile to desktop', async ({ 
             document: document.documentElement.scrollWidth,
             viewport: document.documentElement.clientWidth,
             navbar: document.getElementById('nav-cv').getBoundingClientRect().right,
+            portraitBottom: document.querySelector('.avatar-container').getBoundingClientRect().bottom,
+            locationTop: document.querySelector('.avatar-location').getBoundingClientRect().top,
         }));
         expect(dimensions.document, `${width}px document`).toBeLessThanOrEqual(dimensions.viewport);
         expect(dimensions.navbar, `${width}px navbar`).toBeLessThanOrEqual(dimensions.viewport);
+        expect(dimensions.locationTop, `${width}px Bucharest caption`).toBeGreaterThan(dimensions.portraitBottom);
     }
 });
 
