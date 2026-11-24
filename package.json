@@ -1,14 +1,19 @@
 {
   "name": "andrei-portofolio",
   "version": "1.0.5",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "playwright test"
   },
   "devDependencies": {
-    "vite": "^6.1.0",
-    "terser": "^5.39.0",
-    "vite-plugin-javascript-obfuscator": "^3.1.0"
+    "@playwright/test": "1.65.1",
+    "vite": "8.3.8"
   }
 }
