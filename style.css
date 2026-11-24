@@ -1644,17 +1644,6 @@ ul {
   font-size: 1.05rem;
 }
 
-.projects-cta .artwork-credits {
-  margin: 0.75rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-}
-
-.artwork-credits a {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
 /* ─── EDUCATION ──────────────────────────────── */
 .edu-grid {
   display: grid;

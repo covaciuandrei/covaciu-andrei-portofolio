@@ -37,4 +37,11 @@ The deployment target is **Azure Static Web Apps Free**, resource `portofolio` i
 
 - The contact form uses a [Web3Forms public submission identifier](https://docs.web3forms.com/getting-started/faq). Its documented hCaptcha integration loads only on demand; the direct email link is available even when scripts or CAPTCHA are blocked.
 - The CV and IC3 certificate live in `public/` so Vite ships the original PDFs. Project thumbnails are local and lazy-loaded. Inter and Space Grotesk are self-hosted under the [SIL Open Font License](public/licenses/).
-- The FamFlix thumbnail uses [credited Creative Commons film and series stills](public/licenses/famflix-artwork.txt).
+
+### FamFlix artwork
+
+The FamFlix cover combines the app mark with cropped, color-graded stills. The credits are also embedded in the image metadata. The films do not endorse or have any affiliation with FamFlix.
+
+- [Tears of Steel](https://studio.blender.org/projects/tears-of-steel/) (2012) — (CC) Blender Foundation | [mango.blender.org](https://mango.blender.org/sharing/), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+- [Spring](https://studio.blender.org/projects/spring/) (2019) — Copyright Blender Foundation | [cloud.blender.org/spring](https://studio.blender.org/projects/spring/pages/about/), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- [Caminandes 3: Llamigos](https://studio.blender.org/projects/caminandes-3/) (2016) — Blender Institute; directed by Pablo Vazquez, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) ([licensed release](https://commons.wikimedia.org/wiki/File:Caminandes_3_-_Llamigos_-_Blender_Animated_Short.webm)).
