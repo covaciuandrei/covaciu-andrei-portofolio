@@ -1098,10 +1098,6 @@ ul {
   box-sizing: border-box;
 }
 
-.company-logo[src*="wikitech"] {
-  background: #1a1a2e;
-}
-
 .company {
   font-size: 0.95rem;
   color: var(--accent-blue);
