@@ -90,6 +90,15 @@ body.menu-open {
   display: none !important;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 :focus-visible {
   outline: 2px solid var(--accent-cyan);
   outline-offset: 3px;
@@ -232,6 +241,7 @@ ul {
 .section {
   padding: 6rem 0;
   position: relative;
+  overflow-x: clip;
 }
 
 .section-alt {
@@ -294,16 +304,27 @@ ul {
 }
 
 /* Content stays visible even when the observer or JavaScript is unavailable. */
-.section .in-view {
-  animation: reveal-in 0.45s var(--ease-out-expo);
+.reveal-up { --reveal-y: 40px; }
+.reveal-left { --reveal-x: -50px; }
+.reveal-right { --reveal-x: 50px; }
+
+:is(.reveal-up, .reveal-left, .reveal-right).in-view {
+  animation: reveal-in 0.8s var(--ease-out-expo) var(--reveal-delay, 0s) backwards;
 }
 
 @keyframes reveal-in {
   from {
-    opacity: 0.65;
-    transform: translateY(12px);
+    opacity: 0;
+    translate: var(--reveal-x, 0) var(--reveal-y, 0);
   }
 }
+
+.hero-greeting { --reveal-delay: 0.1s; }
+.hero-name { --reveal-delay: 0.2s; }
+.hero-role, .hero-visual { --reveal-delay: 0.3s; }
+.hero-summary { --reveal-delay: 0.4s; }
+.hero-actions { --reveal-delay: 0.5s; }
+.hero-socials { --reveal-delay: 0.6s; }
 
 /* ─── NAVBAR ─────────────────────────────────── */
 .navbar {
@@ -436,6 +457,16 @@ ul {
   display: none;
 }
 
+.mobile-menu:not([hidden]) {
+  animation: menu-slide-in 0.4s var(--ease-out-expo);
+}
+
+@keyframes menu-slide-in {
+  from {
+    transform: translateY(-110%);
+  }
+}
+
 .mobile-menu ul {
   display: flex;
   flex-direction: column;
@@ -504,6 +535,7 @@ ul {
     rgba(79, 142, 247, 0.12) 0%,
     transparent 70%
   );
+  animation: orbFloat 8s ease-in-out infinite;
 }
 
 .hero-bg::after {
@@ -519,6 +551,13 @@ ul {
     rgba(124, 58, 237, 0.12) 0%,
     transparent 70%
   );
+  animation: orbFloat 10s ease-in-out infinite reverse;
+}
+
+@keyframes orbFloat {
+  50% {
+    transform: translate(20px, -20px);
+  }
 }
 
 /* Particles */
@@ -531,17 +570,21 @@ ul {
   border-radius: 50%;
   background: var(--accent-blue);
   opacity: 0.5;
-  animation: particleFloat 4s ease-in-out 1;
+  /* The pointer translation composes with the keyframes' floating transform. */
+  translate: calc(var(--pointer-x, 0) * var(--depth, 4px)) calc(var(--pointer-y, 0) * var(--depth, 4px));
+  animation: particleFloat var(--dur) ease-in-out var(--delay, 0s) infinite;
 }
 
-.particle:nth-child(1) { --x: 10%; --y: 20%; --size: 3px; }
-.particle:nth-child(2) { --x: 80%; --y: 10%; --size: 2px; }
-.particle:nth-child(3) { --x: 60%; --y: 70%; --size: 4px; }
-.particle:nth-child(4) { --x: 30%; --y: 80%; --size: 2px; }
-.particle:nth-child(5) { --x: 90%; --y: 50%; --size: 3px; }
-.particle:nth-child(6) { --x: 20%; --y: 55%; --size: 2px; }
-.particle:nth-child(7) { --x: 50%; --y: 30%; --size: 3px; }
-.particle:nth-child(8) { --x: 70%; --y: 85%; --size: 2px; }
+.particle:nth-child(3n + 2) { --depth: 8px; }
+.particle:nth-child(3n) { --depth: 12px; }
+.particle:nth-child(1) { --x: 10%; --y: 20%; --size: 3px; --dur: 8s; }
+.particle:nth-child(2) { --x: 80%; --y: 10%; --size: 2px; --delay: 1s; --dur: 10s; }
+.particle:nth-child(3) { --x: 60%; --y: 70%; --size: 4px; --delay: 2s; --dur: 7s; }
+.particle:nth-child(4) { --x: 30%; --y: 80%; --size: 2px; --delay: 0.5s; --dur: 12s; }
+.particle:nth-child(5) { --x: 90%; --y: 50%; --size: 3px; --delay: 3s; --dur: 9s; }
+.particle:nth-child(6) { --x: 20%; --y: 55%; --size: 2px; --delay: 1.5s; --dur: 11s; }
+.particle:nth-child(7) { --x: 50%; --y: 30%; --size: 3px; --delay: 4s; --dur: 8s; }
+.particle:nth-child(8) { --x: 70%; --y: 85%; --size: 2px; --delay: 2.5s; --dur: 13s; }
 
 @keyframes particleFloat {
   0%,
@@ -612,7 +655,8 @@ ul {
   color: var(--accent-cyan);
   border-right: 2px solid var(--accent-cyan);
   padding-right: 4px;
-  animation: blink 0.75s step-end 5;
+  animation: blink 0.75s step-end infinite;
+  min-height: 1lh;
 }
 
 @keyframes blink {
@@ -697,18 +741,33 @@ ul {
     rgba(79, 142, 247, 0.25) 0%,
     transparent 70%
   );
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.4;
+  }
 }
 
 .avatar-ring {
   position: absolute;
   border-radius: 50%;
   border: 1px solid;
+  animation: spin linear infinite;
 }
 
 .ring-1 {
   width: 290px;
   height: 290px;
   border-color: rgba(79, 142, 247, 0.25);
+  animation-duration: 15s;
 }
 
 .ring-2 {
@@ -716,6 +775,14 @@ ul {
   height: 340px;
   border-color: rgba(124, 58, 237, 0.15);
   border-style: dashed;
+  animation-duration: 25s;
+  animation-direction: reverse;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .avatar-container {
@@ -795,25 +862,25 @@ ul {
 .card-flutter {
   top: 5%;
   left: -40px;
-  animation: float1 4s ease-in-out 1;
+  animation: float1 4s ease-in-out infinite;
 }
 
 .card-firebase {
   top: 42%;
   right: -55px;
-  animation: float2 4.5s ease-in-out 1;
+  animation: float2 5s ease-in-out infinite;
 }
 
 .card-docker {
   bottom: 20%;
   left: -40px;
-  animation: float3 4s ease-in-out 1;
+  animation: float3 6s ease-in-out infinite;
 }
 
 .card-git {
   bottom: 2%;
   right: -40px;
-  animation: float4 4.5s ease-in-out 1;
+  animation: float4 7s ease-in-out infinite;
 }
 
 @keyframes float1 {
@@ -882,7 +949,7 @@ ul {
   border-right: 2px solid var(--text-muted);
   border-bottom: 2px solid var(--text-muted);
   transform: rotate(45deg);
-  animation: bounce 1.5s ease-in-out 3;
+  animation: bounce 1.5s ease-in-out infinite;
 }
 
 @keyframes bounce {
@@ -1728,6 +1795,7 @@ ul {
     rgba(79, 142, 247, 0.08) 0%,
     transparent 60%
   );
+  animation: pulse 4s ease-in-out infinite;
 }
 
 .blob-icon {
@@ -1775,6 +1843,21 @@ ul {
   border-radius: 50%;
   background: #10b981;
   flex-shrink: 0;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+    box-shadow: 0 0 0 5px rgba(16, 185, 129, 0);
+  }
 }
 
 /* ─── FOOTER ─────────────────────────────────── */
@@ -2186,6 +2269,10 @@ ul {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .particle {
+    translate: none;
   }
 
   *,

@@ -79,9 +79,74 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
             }
         }
     }, { threshold: 0.12 });
-    document.querySelectorAll('.section :is(.reveal-up, .reveal-left, .reveal-right)')
+    document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right')
         .forEach(element => revealObserver.observe(element));
 }
+
+const role = document.getElementById('role-animated');
+const initialRole = role.textContent;
+const roles = [initialRole, 'web apps', 'Flutter apps', 'clean code', 'awesome UIs'];
+let roleIndex = 0;
+let letters = initialRole.length;
+let deleting = true;
+let roleTimer;
+
+function typeRole() {
+    const phrase = roles[roleIndex];
+    letters += deleting ? -1 : 1;
+    role.textContent = phrase.slice(0, letters);
+
+    if (!deleting && letters === phrase.length) {
+        deleting = true;
+        roleTimer = setTimeout(typeRole, 2000);
+    } else {
+        if (deleting && letters === 0) {
+            deleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+        }
+        roleTimer = setTimeout(typeRole, deleting ? 60 : 100);
+    }
+}
+
+function updateTypewriter() {
+    clearTimeout(roleTimer);
+    if (reducedMotion.matches) {
+        roleIndex = 0;
+        letters = initialRole.length;
+        deleting = true;
+        role.textContent = initialRole;
+    } else if (!document.hidden) {
+        roleTimer = setTimeout(typeRole, 1500);
+    }
+}
+
+const hero = document.getElementById('hero');
+const heroBackground = hero.querySelector('.hero-bg');
+let pointerFrame = 0;
+function resetParallax() {
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = 0;
+    heroBackground.style.removeProperty('--pointer-x');
+    heroBackground.style.removeProperty('--pointer-y');
+}
+
+hero.addEventListener('pointermove', ({ clientX, clientY, pointerType }) => {
+    if (reducedMotion.matches || pointerType === 'touch') return;
+
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = requestAnimationFrame(() => {
+        heroBackground.style.setProperty('--pointer-x', clientX / window.innerWidth * 2 - 1);
+        heroBackground.style.setProperty('--pointer-y', clientY / window.innerHeight * 2 - 1);
+        pointerFrame = 0;
+    });
+}, { passive: true });
+hero.addEventListener('pointerleave', resetParallax);
+reducedMotion.addEventListener('change', () => {
+    resetParallax();
+    updateTypewriter();
+});
+document.addEventListener('visibilitychange', updateTypewriter);
+updateTypewriter();
 
 const profileImg = document.getElementById('profile-img');
 function showAvatarInitials() {

@@ -117,7 +117,31 @@ test.describe('without JavaScript', () => {
     });
 });
 
-test('reduced motion disables decorative animation and smooth scrolling', async ({ page }) => {
+test('default motion restores the typewriter, spinning rings and pointer parallax', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
+    await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
+    await page.goto('/');
+    await expect(page.locator('.ring-2')).toHaveCSS('animation-iteration-count', 'infinite');
+    await expect(page.locator('.card-flutter')).toHaveCSS('animation-iteration-count', 'infinite');
+    const particle = page.locator('.particle').first();
+    const restingPosition = await particle.evaluate(element => getComputedStyle(element).translate);
+    await page.mouse.move(1080, 300);
+    await page.clock.runFor(32);
+    await expect(particle).not.toHaveCSS('translate', restingPosition);
+
+    await page.clock.runFor(3500);
+    await expect(page.locator('#role-animated')).toHaveText('web apps');
+
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.clock.runFor(32);
+    await expect(page.locator('#role-animated')).toHaveText('mobile apps');
+    await expect(particle).toHaveCSS('translate', 'none');
+    await page.clock.runFor(4000);
+    await expect(page.locator('#role-animated')).toHaveText('mobile apps');
+});
+
+test('reduced motion disables decorative animation and smooth scrolling on load', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');
     await expect(page.locator('html')).toHaveCSS('scroll-behavior', 'auto');
